@@ -32,9 +32,9 @@ class MusicPlayerController {
         }
     }
 
-    static presentPicker(webSaveToLocalStorage, successHandler, cancelHandler) {
+    static presentPicker(selectMultiple, successHandler, cancelHandler) {
         const player = NativeModules.RNReactNativeMusicplayercontroller
-        player.presentPicker((errorCode, metadata) => {
+        player.presentPicker(selectMultiple, (errorCode, metadata) => {
             if (errorCode == 0) {
                 // No Error. User picked
                 successHandler(metadata)
@@ -61,6 +61,31 @@ class MusicPlayerController {
         })
     }
 
+    static skipSong() {
+        const player = NativeModules.RNReactNativeMusicplayercontroller
+        player.skipSong()
+    }
+
+    static async getArtist() {
+        const player = NativeModules.RNReactNativeMusicplayercontroller
+        return await player.getArtist()
+    }
+
+    static async getSong() {
+        const player = NativeModules.RNReactNativeMusicplayercontroller
+        return await player.getSong()
+    }
+
+    static async getProgress() {
+        const player = NativeModules.RNReactNativeMusicplayercontroller
+        return await player.getProgress()
+    }
+
+    static previousSong() {
+        const player = NativeModules.RNReactNativeMusicplayercontroller
+        player.skipToPreviousSong()
+    }
+    
     static playMusic(successHandler, errorHandler) {
         const player = NativeModules.RNReactNativeMusicplayercontroller
         player.playMusic((errorCode, metadata) => {

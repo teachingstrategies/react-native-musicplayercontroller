@@ -17,7 +17,7 @@ RCT_EXPORT_MODULE();
 //////////////////////////////////////////////////////////////////////
 // Media Picker
 
-RCT_EXPORT_METHOD(presentPicker: (RCTResponseSenderBlock)callback : (BOOL)selectMultiple) {
+RCT_EXPORT_METHOD(presentPicker: (BOOL)selectMultiple : (RCTResponseSenderBlock)callback) {
     savedCallbackForMusicPlayerController = callback;
 
 #if TARGET_IPHONE_SIMULATOR
