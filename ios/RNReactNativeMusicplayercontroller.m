@@ -43,7 +43,8 @@ RCT_EXPORT_METHOD(presentPicker: (RCTResponseSenderBlock)callback : (BOOL)select
         [picker setShowsCloudItems:false];
         [picker setAllowsPickingMultipleItems:selectMultiple];
         if ([picker respondsToSelector:@selector(setShowsItemsWithProtectedAssets:)]) {
-            [picker setShowsItemsWithProtectedAssets:false];
+            // Always show all downloaded content
+            [picker setShowsItemsWithProtectedAssets:true];
         }
         [picker setDelegate:self];
         [topViewController presentViewController:picker animated:true completion:^{}];
