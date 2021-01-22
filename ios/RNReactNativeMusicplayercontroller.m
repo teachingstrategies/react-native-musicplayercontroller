@@ -137,6 +137,52 @@ RCT_EXPORT_METHOD(playMusic: (RCTResponseSenderBlock)callback) {
     }
 }
 
+RCT_EXPORT_METHOD(skipSong) {
+     if (musicPlayer != nil) {
+         [musicPlayer skipToNextItem];
+     }
+ }
+
+ RCT_EXPORT_METHOD(skipToPreviousSong) {
+     if (musicPlayer != nil) {
+         [musicPlayer skipToPreviousItem];
+     }
+ }
+
+ RCT_EXPORT_METHOD(getArtist:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject) {
+     if(musicPlayer != nil) {
+        MPMediaItem *currentItem = musicPlayer.nowPlayingItem;
+        NSString *artist = [currentItem valueForProperty:MPMediaItemPropertyArtist];
+        resolve(artist);
+     } else {
+        resolve(@"error");
+     }
+ }
+
+ RCT_EXPORT_METHOD(getSong:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject) {
+     if(musicPlayer != nil) {
+        MPMediaItem *currentItem = musicPlayer.nowPlayingItem;
+        NSString *artist = [currentItem valueForProperty:MPMediaItemPropertyTitle];
+        resolve(artist);
+     } else {
+        resolve(@"error");
+     }
+ }
+
+ RCT_EXPORT_METHOD(getProgress:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject) {
+     if(musicPlayer != nil) {
+        double currentDuration = [[[musicPlayer nowPlayingItem] valueForProperty:MPMediaItemPropertyPlaybackDuration]doubleValue];
+        double currentTime = (double) [musicPlayer currentPlaybackTime];
+        double progress = currentTime/currentDuration;
+        resolve([NSNumber numberWithDouble:progress]);
+     } else {
+        resolve(@"error");
+     }
+}
+
 RCT_EXPORT_METHOD(stopMusic: (RCTResponseSenderBlock)callback) {
     if (musicPlayer != nil) {
         callback(@[[NSNumber numberWithInteger:0], @[]]);
