@@ -17,7 +17,7 @@ RCT_EXPORT_MODULE();
 //////////////////////////////////////////////////////////////////////
 // Media Picker
 
-RCT_EXPORT_METHOD(presentPicker: (RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(presentPicker: (RCTResponseSenderBlock)callback : (BOOL)selectMultiple) {
     savedCallbackForMusicPlayerController = callback;
 
 #if TARGET_IPHONE_SIMULATOR
@@ -41,7 +41,7 @@ RCT_EXPORT_METHOD(presentPicker: (RCTResponseSenderBlock)callback) {
 
         MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
         [picker setShowsCloudItems:false];
-        [picker setAllowsPickingMultipleItems:false];
+        [picker setAllowsPickingMultipleItems:selectMultiple];
         if ([picker respondsToSelector:@selector(setShowsItemsWithProtectedAssets:)]) {
             [picker setShowsItemsWithProtectedAssets:false];
         }
